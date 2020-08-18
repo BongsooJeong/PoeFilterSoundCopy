@@ -1,0 +1,117 @@
+﻿<Window x:Class="poeFilterSoundCopy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:poeFilterSoundCopy"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Width="624" Height="380"
+        Topmost="{Binding Settings.KeepWindowTopmost}"
+        Background="#FDFDFD" ResizeMode="NoResize">
+    <Grid>
+        <!-- MainWindow Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="#F5F5F5" Padding="10, 0, 10, 0" Height="26" BorderBrush="#E5E5E5" BorderThickness="0, 0, 0, 1">
+            <!--<Border.Background>
+                <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1.0">
+                    <GradientStop Color="#E1E1E1" Offset="0.0"/>
+                    <GradientStop Color="#E8E8E8" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>-->
+            <Grid Grid.Row="0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock TextTrimming="CharacterEllipsis"><Run Text="PoeSoundFilterCopy" FontFamily="Segoe UI SemiBold"/> by ps</TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBlock Margin="0, 0, 15, 0"><Hyperlink Focusable="False" NavigateUri="" RequestNavigate="HyperlinkClick">Help/FAQ</Hyperlink></TextBlock>
+                    <TextBlock Margin="0, 0, 0, 0" ToolTip="bsjeong@gmail.com"><Hyperlink Focusable="False" NavigateUri="bsjeong@gmail.com" RequestNavigate="HyperlinkClick">Contact</Hyperlink></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Output Folder -->
+        <Grid Grid.Row="1"  DataContext="{Binding Settings}" Margin="10, 12, 10, 13">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="77"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Output File" VerticalAlignment="Center"/>
+            <TextBox IsReadOnly="True" Grid.Column="2" Focusable="False" VerticalContentAlignment="Center" Name="outputPath"/>
+        </Grid>
+        <!-- Splitter -->
+        <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Focusable="False" Height="13"  />
+
+        <!-- Sound Source -->
+        <Grid Grid.Row="3"  DataContext="{Binding Settings}" Margin="10, 12, 10, 13">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="77"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="Sound Filter"/></TextBlock>
+            <TextBox IsReadOnly="True" Grid.Column="2" Focusable="False" VerticalContentAlignment="Center" Name="soundPath"/>
+        </Grid>
+        <!-- File Drop area -->
+        <Grid Grid.Row="4" Margin="10, 0, 10, 0" AllowDrop="True" Drop="InputSectionDragDrop" DragEnter="InputSectionDragEnter" DragLeave="InputSectionDragLeave" Background="Transparent" Opacity="0.5">
+            <Rectangle StrokeThickness="3" Stroke="#686868" StrokeDashArray="4 2"/>
+            <Grid Margin="15, 0, 15, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*" MaxWidth="200"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" MaxHeight="36"/>
+                <TextBlock Grid.Column="2"  Text="Drag Sound Filter file here.." FontSize="14" FontFamily="Segoe UI SemiBold" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            </Grid>
+        </Grid>
+        <!-- Sound Source -->
+        <Grid Grid.Row="5"  DataContext="{Binding Settings}" Margin="10, 12, 10, 13">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="77"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="Main Filter"/></TextBlock>
+            <TextBox IsReadOnly="True" Grid.Column="2" Focusable="False" VerticalContentAlignment="Center" Name="mainPath"/>
+        </Grid>
+        <!-- File Drop area -->
+        <Grid Grid.Row="6" Margin="10, 0, 10, 0" AllowDrop="True" Drop="InputSectionDragDrop2" DragEnter="InputSectionDragEnter" DragLeave="InputSectionDragLeave" Background="Transparent" Opacity="0.5">
+            <Rectangle StrokeThickness="3" Stroke="#686868" StrokeDashArray="4 2"/>
+            <Grid Margin="15, 0, 15, 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*" MaxWidth="200"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" MaxHeight="36"/>
+                <TextBlock Grid.Column="2"  Text="Drag Main Filter file here.." FontSize="14" FontFamily="Segoe UI SemiBold" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            </Grid>
+        </Grid>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" Focusable="False" Height="13" Background="Transparent"  />
+        <GridSplitter Grid.Row="8" HorizontalAlignment="Stretch" Focusable="False" Height="13"  />
+
+        <!-- ConversionJobs List -->
+        <Grid Grid.Row="9" Margin="10, 12, 10, 13">
+            <Button  Height="30" Content="Start Copy" FontSize="14" FontFamily="Segoe UI SemiBold" VerticalAlignment="Center" Click="StartButtonClick"/>
+        </Grid>
+    </Grid>
+</Window>
